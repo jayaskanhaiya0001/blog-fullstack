@@ -16,7 +16,7 @@ export default function Login() {
     if (token) {
       router.push("/blog");
     }
-  }, []);
+  }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

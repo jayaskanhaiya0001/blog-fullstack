@@ -30,59 +30,60 @@ function BlogList(
   };
 
   return (
+    <WithAuth>
+      <div className="container mx-auto px-4 py-8 bg-white min-h-screen">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold text-black">Latest Articles</h1>
 
-    <div className="container mx-auto px-4 py-8 bg-white min-h-screen">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-black">Latest Articles</h1>
- 
           <Link href={'/blog/manage/new'}>
             <button className="  hidden md:block text-[#7F265B] bg-[#fff] px-4 py-2 rounded-lg font-bold  hover:text-black">Create New Blog</button>
-          </Link> 
-    
-      </div>
+          </Link>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {blogPosts?.map(blog => (
-          <article key={blog._id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow relative">
-            {blog.featuredImage && (
-              <div className="relative h-48">
-                <Image
-                  src={blog.featuredImage}
-                  alt={blog.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {blogPosts?.map(blog => (
+            <article key={blog._id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow relative">
+              {blog.featuredImage && (
+                <div className="relative h-48">
+                  <Image
+                    src={blog.featuredImage}
+                    alt={blog.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+              )}
+              <button
+                onClick={() => handleDelete(blog._id)}
+                className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-red-100 transition">
+                <FaTrash className="text-red-600" />
+              </button>
+              <div className="p-6">
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {blog.tags.map(tag => (
+                    <span key={tag} className="bg-gray-100 text-black px-3 py-1 text-sm rounded-full">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+                <h2 className="text-xl font-bold mb-2">
+                  <Link href={`/blog/${blog._id}`} className="text-black hover:text-blue-600">
+                    {blog.title}
+                  </Link>
+                </h2>
+                <p className="text-gray-600 mb-4">{blog.excerpt}</p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>{blog.formattedDate}</span>
+                  <span>{blog.views} views</span>
+                </div>
               </div>
-            )}
-            <button
-              onClick={() => handleDelete(blog._id)}
-              className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-red-100 transition">
-              <FaTrash className="text-red-600" />
-            </button>
-            <div className="p-6">
-              <div className="flex flex-wrap gap-2 mb-3">
-                {blog.tags.map(tag => (
-                  <span key={tag} className="bg-gray-100 text-black px-3 py-1 text-sm rounded-full">
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-              <h2 className="text-xl font-bold mb-2">
-                <Link href={`/blog/${blog._id}`} className="text-black hover:text-blue-600">
-                  {blog.title}
-                </Link>
-              </h2>
-              <p className="text-gray-600 mb-4">{blog.excerpt}</p>
-              <div className="flex items-center justify-between text-sm text-gray-500">
-                <span>{blog.formattedDate}</span>
-                <span>{blog.views} views</span>
-              </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
-    </div>
+    </WithAuth>
 
   );
 }
@@ -96,4 +97,4 @@ export async function getStaticProps() {
   };
 }
 
-export default WithAuth(BlogList)
+export default BlogList

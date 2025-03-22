@@ -66,72 +66,73 @@ function BlogEditor() {
 
 
   return (
-    <div className="container mx-auto px-4 py-8  bg-white">
-      <h1 className="text-3xl font-bold mb-6 text-black">
-        {slug === 'new' ? 'Create New Blog Post' : 'Edit Blog Post'}
-      </h1>
+    <WithAuth>
+      <div className="container mx-auto px-4 py-8  bg-white">
+        <h1 className="text-3xl font-bold mb-6 text-black">
+          {slug === 'new' ? 'Create New Blog Post' : 'Edit Blog Post'}
+        </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Title</label>
-          <input
-            type="text"
-            value={formData.title}
-            onChange={e => setFormData({ ...formData, title: e.target.value })}
-            className="mt-1 w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Featured Image URL</label>
-          <input
-            type="url"
-            value={formData.featuredImage}
-            onChange={e => setFormData({ ...formData, featuredImage: e.target.value })}
-            className="mt-1 w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Excerpt</label>
-          <textarea
-            value={formData.excerpt}
-            onChange={e => setFormData({ ...formData, excerpt: e.target.value })}
-            className="mt-1 w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300 h-32"
-            maxLength="200"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Content</label>
-          <textarea
-            value={formData.content}
-            onChange={e => setFormData({ ...formData, content: e.target.value })}
-            className="mt-1 w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300 h-96"
-            required
-          />
-        </div>
-
-        <div className="grid grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Tags</label>
-            <select
-              // multiple
-              value={formData.tags}
-              onChange={e => setFormData({
-                ...formData,
-                tags: Array.from(e.target.selectedOptions, option => option.value)
-              })}
-              className="mt-1 capitalize w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300 "
-            >
-              {['technology', 'programming', 'web-development', 'design', 'career'].map(tag => (
-                <option key={tag} value={tag} className=' capitalize'>{tag}</option>
-              ))}
-            </select>
+            <label className="block text-sm font-medium text-gray-700">Title</label>
+            <input
+              type="text"
+              value={formData.title}
+              onChange={e => setFormData({ ...formData, title: e.target.value })}
+              className="mt-1 w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300"
+              required
+            />
           </div>
 
-          {/* <div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Featured Image URL</label>
+            <input
+              type="url"
+              value={formData.featuredImage}
+              onChange={e => setFormData({ ...formData, featuredImage: e.target.value })}
+              className="mt-1 w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Excerpt</label>
+            <textarea
+              value={formData.excerpt}
+              onChange={e => setFormData({ ...formData, excerpt: e.target.value })}
+              className="mt-1 w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300 h-32"
+              maxLength="200"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Content</label>
+            <textarea
+              value={formData.content}
+              onChange={e => setFormData({ ...formData, content: e.target.value })}
+              className="mt-1 w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300 h-96"
+              required
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Tags</label>
+              <select
+                // multiple
+                value={formData.tags}
+                onChange={e => setFormData({
+                  ...formData,
+                  tags: Array.from(e.target.selectedOptions, option => option.value)
+                })}
+                className="mt-1 capitalize w-full rounded-lg border p-2 text-black focus:outline-none focus:ring focus:ring-purple-300 "
+              >
+                {['technology', 'programming', 'web-development', 'design', 'career'].map(tag => (
+                  <option key={tag} value={tag} className=' capitalize'>{tag}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* <div>
               <label className="block mb-2 font-medium">Status</label>
               <select
                 value={formData.status}
@@ -142,27 +143,28 @@ function BlogEditor() {
                 <option value="published">Published</option>
               </select>
             </div> */}
-        </div>
+          </div>
 
-        <div className="flex justify-end gap-4">
-          <button
-            type="button"
-            onClick={() => router.push('/blog')}
-            className="px-6 py-2 border rounded-lg hover:bg-gray-50 text-black"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="bg-[#7F265B] text-white px-6 py-2 rounded-lg hover:bg-blue-700"
-          >
-            {slug === 'new' ? 'Create Blog' : 'Update Blog'}
-          </button>
-        </div>
-      </form>
-    </div>
+          <div className="flex justify-end gap-4">
+            <button
+              type="button"
+              onClick={() => router.push('/blog')}
+              className="px-6 py-2 border rounded-lg hover:bg-gray-50 text-black"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-[#7F265B] text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+            >
+              {slug === 'new' ? 'Create Blog' : 'Update Blog'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </WithAuth>
 
   );
 }
 
-export default WithAuth(BlogEditor);
+export default BlogEditor;
