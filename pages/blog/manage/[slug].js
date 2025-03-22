@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import withAuth from '@/components/Protected';
+import WithAuth from '@/components/Protected';
 
 function BlogEditor() {
   const router = useRouter();
@@ -165,4 +165,4 @@ function BlogEditor() {
   );
 }
 
-export default withAuth(BlogEditor);
+export default WithAuth(BlogEditor);

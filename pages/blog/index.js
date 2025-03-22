@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import { FaTrash } from 'react-icons/fa';
 import { useState } from 'react';
-import withAuth from '@/components/Protected';
+import WithAuth from '@/components/Protected';
 
 function BlogList(
   { posts }
@@ -96,4 +96,4 @@ export async function getStaticProps() {
   };
 }
 
-export default withAuth(BlogList)
+export default WithAuth(BlogList)

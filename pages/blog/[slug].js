@@ -3,7 +3,7 @@ import Image from 'next/image';
 // import { useAuth } from '../../../contexts/auth-context';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
-import withAuth from '@/components/Protected';
+import WithAuth from '@/components/Protected';
 
 function BlogPost({ blog }) {
   const { user } = useAuth();
@@ -80,4 +80,4 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default withAuth(BlogPost)
+export default WithAuth(BlogPost)
