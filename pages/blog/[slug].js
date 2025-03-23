@@ -1,12 +1,7 @@
-import { useEffect } from 'react';
 import Image from 'next/image';
-// import { useAuth } from '../../../contexts/auth-context';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
 import WithAuth from '@/components/Protected';
-
 function BlogPost({ blog }) {
-  const { user } = useAuth();
   return (
     <WithAuth>
       <div className="container mx-auto px-4 py-8  bg-white w-full h-screen">
@@ -54,7 +49,7 @@ function BlogPost({ blog }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`http://localhost:3000/api/blog/getAllBlog`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blog/getAllBlog`);
   const blogs = await res.json();
 
   const paths = blogs?.data?.map(blog => ({
@@ -70,7 +65,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:3000/api/blog/${params.slug}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blog/${params.slug}`);
   console.log(res, "Check Response Value")
   const blog = await res.json();
 

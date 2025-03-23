@@ -89,7 +89,7 @@ function BlogList(
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`http://localhost:3000/api/blog/getAllBlog`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blog/getAllBlog`);
   const posts = await res.json();
   return {
     props: { posts },
@@ -97,4 +97,4 @@ export async function getStaticProps() {
   };
 }
 
-export default BlogList
+export default BlogList;
